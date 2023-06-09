@@ -1,0 +1,19 @@
+.footer-light {
+    
+    margin-top: 10px;
+    border-top: 2px solid black;
+    color: black;
+}
+
+.footer-dark {
+    margin-top: 10px;
+    border-top: 2px solid white;
+    color: white;
+}
+
+#footer {
+    text-align: center;
+    line-height: 80px;
+    width: 100%;
+    height: 10vh;
+}
