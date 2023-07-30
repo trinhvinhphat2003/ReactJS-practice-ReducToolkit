@@ -4,7 +4,7 @@ import "./Footer.css"
 const Footer = () => {
     return (
         <div className={"footer-" + localStorage.getItem("mode")} id='footer'>
-            FOOTER
+            Phattvse170042@fpt.edu.vn
         </div>
     )
 }

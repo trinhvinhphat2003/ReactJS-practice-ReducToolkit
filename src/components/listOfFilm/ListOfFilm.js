@@ -1,12 +1,17 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Film from "../film/Film";
 import { Container, Grid } from '@mui/material';
+import { v4 } from "uuid"
+import axios from "axios"
+import { useDispatch, useSelector } from "react-redux";
+import { setFIlms } from "../../redux/reducers/FilmSlice";
+import { getAllFilms } from "../../redux/selectors/selectors";
 
 export const listOfFilm = [
     {
         id: 1,
         image: "http://folkr.fr/wp-content/uploads/2018/01/top-20-affiches-de-films-2017-folkr-Dunkerque.jpg",
-        title: "folkr Dunkerque(2017)",
+        title: "folkr Dunkerque",
         year: "2017",
         nation: "USA",
         video: "https://www.youtube.com/embed/vZ734NWnAHA",
@@ -46,7 +51,7 @@ export const listOfFilm = [
         year: "1977",
         nation: "USA",
         video: "https://www.youtube.com/embed/bYOn3-PhA9c",
-        description:"Seventeen-year-old Rose hails from an aristocratic family and is set to be married. When she boards the Titanic, she meets Jack Dawson, an artist, and falls in love with him."
+        description: "Seventeen-year-old Rose hails from an aristocratic family and is set to be married. When she boards the Titanic, she meets Jack Dawson, an artist, and falls in love with him."
     },
     {
         id: 6,
@@ -88,7 +93,24 @@ export const listOfFilm = [
 
 const ListOfFilm = () => {
 
-    const [films, setFilms] = useState(listOfFilm)
+    //const [films, setFilms] = useState([]);
+    const films = useSelector(getAllFilms)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        axios.get("https://6475906fe607ba4797dc0b16.mockapi.io/api/products")
+            .then((res) => {
+                dispatch(
+                    setFIlms(res.data)
+                )
+                console.log(JSON.stringify(films))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <Container>
             <Grid container={true} spacing={2} p={0} justify="center">
@@ -96,7 +118,7 @@ const ListOfFilm = () => {
                 {
                     films.map((film) => {
                         return (
-                            <Grid item lg={4} md={6} sm={6} xs={6} key={film.id}>
+                            <Grid item lg={4} md={6} sm={6} xs={12} key={film.id}>
                                 <Film
                                     film={film}
                                     key={film.id}

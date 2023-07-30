@@ -5,10 +5,8 @@ import "./Navigation.css"
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState } from "react";
 import { useTheme } from "@emotion/react";
-import HomeIcon from '@mui/icons-material/Home';
-import ContactPageIcon from '@mui/icons-material/ContactPage';
-import InfoIcon from '@mui/icons-material/Info';
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/reducers/isLogginnedSlice";
 
 const Navigation = ({ setMode, mode }) => {
 
@@ -27,11 +25,15 @@ const Navigation = ({ setMode, mode }) => {
         setMode(localStorage.getItem("mode") === "light" ? () => { localStorage.setItem("mode", "dark"); return localStorage.getItem("mode") } : () => { localStorage.setItem("mode", "light"); return localStorage.getItem("mode") })
     }
 
+    const navigation = useNavigate()
+
+    const dispatch = useDispatch()
+
     return (
         <AppBar position="static" color="primary" className="nav-bar">
             <Toolbar>
                 <Typography variant="h5" style={{ cursor: "pointer" }} sx={{ flexGrow: 1 }} onClick={() => navigagte("/")}>
-                    FILM
+                    DASHBOARD
                 </Typography>
                 {
                     isMd ?
@@ -52,16 +54,7 @@ const Navigation = ({ setMode, mode }) => {
                                     <Box width={"250px"}>
                                         <Grid container spacing={2} p={2}>
                                             <Grid item xs={12}>
-                                                <Button variant="contained" fullWidth onClick={() => { isOpen(false) }}><NavLink to={"/"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><HomeIcon /> home</NavLink></Button>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Button variant="contained" fullWidth onClick={() => { isOpen(false) }}><NavLink to={"/contact"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><ContactPageIcon /> contact</NavLink></Button>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Button variant="contained" fullWidth onClick={() => { isOpen(false) }}><NavLink to={"/about"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><InfoIcon /> about</NavLink></Button>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Button variant="contained" fullWidth onClick={() => { isOpen(false) }}><NavLink to={"/news"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><NewReleasesIcon /> news</NavLink></Button>
+                                                <Button variant="contained" fullWidth><NavLink to={"/film-managerment"} exact="true" className={"link"}>films managerment</NavLink></Button>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <Switch
@@ -70,7 +63,7 @@ const Navigation = ({ setMode, mode }) => {
                                                 />
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Button variant="contained" fullWidth onClick={() => { isOpen(false) }}><NavLink to={"/login"} exact="true" className={"link"}>login</NavLink></Button>
+                                                <Button variant="contained" fullWidth onClick={() => { localStorage.removeItem("user"); dispatch(logout()); }}><NavLink to={"/"} exact="true" className={"link"}>Log out</NavLink></Button>
                                             </Grid>
                                         </Grid>
 
@@ -81,16 +74,13 @@ const Navigation = ({ setMode, mode }) => {
                         :
                         (
                             <>
-                                <Button color="inherit"><NavLink to={"/"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><HomeIcon /> home</NavLink></Button>
-                                <Button color="inherit"><NavLink to={"/contact"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><ContactPageIcon /> contact</NavLink></Button>
-                                <Button color="inherit"><NavLink to={"/about"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><InfoIcon /> about</NavLink></Button>
-                                <Button color="inherit"><NavLink to={"/news"} exact="true" className={"link"} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}><NewReleasesIcon /> news</NavLink></Button>
+                                <Button color="inherit"><NavLink to={"/film-managerment"} exact="true" className={"link"}>films managerment</NavLink></Button>
                                 <Switch
                                     checked={checked}
                                     onClick={handleToggle}
                                 />
-                                <Button color="inherit"><NavLink to={"/login"} exact="true" className={"link"}>login</NavLink></Button>
-
+                                {localStorage.getItem('user') !== null ? <Avatar alt="Cindy Baker" src={JSON.parse(localStorage.getItem('user')).picture} /> : <Button color="inherit"><NavLink to={"/login"} exact="true" className={"link"}>login</NavLink></Button>}
+                                <Button color="inherit" onClick={() => { localStorage.removeItem("user"); dispatch(logout()); navigagte("/") }}>log out</Button>
                             </>
                         )
                 }

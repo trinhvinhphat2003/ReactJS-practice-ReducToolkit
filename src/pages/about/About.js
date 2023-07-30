@@ -33,7 +33,7 @@ const About = () => {
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="center">
+                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="left">
                             Welcome
                         </Typography>
                     </AccordionSummary>
@@ -49,7 +49,7 @@ const About = () => {
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="center">
+                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="left">
                             our contact information
                         </Typography>
                     </AccordionSummary>
@@ -75,7 +75,7 @@ const About = () => {
                         aria-controls="panel2bh-content"
                         id="panel2bh-header"
                     >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="center">What can you do in our app</Typography>
+                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="left">What can you do in our app</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography align="center">
@@ -89,7 +89,7 @@ const About = () => {
                         aria-controls="panel4bh-content"
                         id="panel4bh-header"
                     >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="center">
+                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="left">
                             Our Mission
                         </Typography>
                     </AccordionSummary>
@@ -105,7 +105,7 @@ const About = () => {
                         aria-controls="panel3bh-content"
                         id="panel3bh-header"
                     >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="center">
+                        <Typography sx={{ width: '33%', flexShrink: 0 }} align="left">
                             Policy
                         </Typography>
                     </AccordionSummary>

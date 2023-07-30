@@ -1,9 +1,10 @@
 import ListOfFilm from "../../components/listOfFilm/ListOfFilm";
+import "./Home.css"
 
 const Home = () => {
     return (
-        <div>
-            <ListOfFilm/>
+        <div className="home-container">
+            <ListOfFilm />
         </div>
     )
 }

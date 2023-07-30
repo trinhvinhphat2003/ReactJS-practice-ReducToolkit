@@ -1,21 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import './App.css';
-import ListOfFilm from './components/listOfFilm/ListOfFilm';
-import Header from './components/header/Header';
 import { useEffect, useState } from "react";
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
-import Contact from "./pages/contact/Contact";
 import Footer from "./components/footer/Footer";
-import About from "./pages/about/About";
-import News from "./pages/news/News";
-import FilmDetailContent, { getFilmById } from "./components/film-detail-content/FilmDetailContent";
-import Home from "./pages/home/Home";
-import ErrorNotFound from "./errors/not-found/ErrorNotFound";
+import PublicRoute from "./routes/PublicRoute"
+import PrivateRoute from "./routes/PrivateRoute";
+import { useSelector } from "react-redux";
+import { isLoginnedSelector } from "./redux/selectors/selectors";
+
+
 
 function App() {
   useEffect(
     () => {
-      console.log();
+      console.log("user => " + isLoginned);
     }, []
   )
 
@@ -29,22 +27,19 @@ function App() {
     }
   });
 
+  const isLoginned = useSelector(isLoginnedSelector);
+
   return (
+
     <div className={mode === "dark" ? "dark" : "light"}>
       <Router>
         <CssBaseline />
         <ThemeProvider theme={customTheme}>
-          <Header setMode={setMode} mode={mode} />
-
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/*" element={<ErrorNotFound />} />
-            <Route path="/detail/:id" element={<FilmDetailContent />} loader={getFilmById} errorElement={<ErrorNotFound />} />
-          </Routes>
-
+          {
+            !isLoginned
+              ? <PublicRoute setMode={setMode} mode={mode} />
+              : <PrivateRoute setMode={setMode} mode={mode} />
+          }
           <Footer />
         </ThemeProvider>
       </Router>
